@@ -1,6 +1,7 @@
 ﻿using Application.Features.Technologies.Commands.CreateTechnology;
 using Application.Features.Technologies.Commands.DeleteTechnology;
 using Application.Features.Technologies.Commands.UpdateTechnology;
+using Application.Features.Technologies.Dtos;
 using Application.Features.Technologies.Queries.GetListTechnology;
 using Core.Application.Requests;
 using MediatR;
@@ -17,7 +18,16 @@ public class TechnologiesController : Controller
     public TechnologiesController(IMediator mediator)
         => _mediator = mediator;
 
-    
+
+    [HttpPost("add")]
+    public async Task<IActionResult> AddTechnology([FromBody] CreateTechnologyCommand createTechnologyCommand )
+    {
+       
+        CreatedTechnologyDto result = await _mediator.Send(createTechnologyCommand);
+        return Ok(result);
+
+    }
+
     [HttpDelete]
     public async Task<IActionResult> Delte([FromBody] DeleteTechnologyCommand deleteTechnologyCommand)
     {

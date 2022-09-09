@@ -17,6 +17,7 @@ namespace Application.Features.Developers.Models
         {
             CreateMap<Developer, CreateDeveloperCommand>().ReverseMap();
             CreateMap<TokenDto, AccessToken>().ReverseMap();
+
         }
     }
 }

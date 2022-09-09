@@ -5,6 +5,7 @@ using Core.Application.Requests;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,11 @@ namespace Application.Features.Developers.Queries
 
             public async Task<GitHubProfileListModel> Handle(GetListGithubProfileQuery request, CancellationToken cancellationToken)
             {
-                IPaginate<GitHubProfile> gitHubProfile = await _gitHubProfileRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+                IPaginate<GitHubProfile> gitHubProfile = await _gitHubProfileRepository.GetListAsync(index: request.PageRequest.Page,
+                    size: request.PageRequest.PageSize,
+                    include: x => x.Include(x => x.Developer));
+                
+                
 
                 GitHubProfileListModel _mappedGitHubProfile = _mapper.Map<GitHubProfileListModel>(gitHubProfile);
 

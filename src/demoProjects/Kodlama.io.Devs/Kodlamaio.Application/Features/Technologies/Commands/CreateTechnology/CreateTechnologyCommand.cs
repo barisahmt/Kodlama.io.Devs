@@ -9,7 +9,6 @@ namespace Application.Features.Technologies.Commands.CreateTechnology;
 
 public class CreateTechnologyCommand : IRequest<CreatedTechnologyDto>
 {
-    [JsonIgnore]
     public int ProgrammingLanguageId { get; set; }
     public string Name { get; set; }
     
@@ -29,7 +28,7 @@ public class CreateTechnologyCommand : IRequest<CreatedTechnologyDto>
 
             var ap = _mapper.Map<Technology>(request);
             await _technologyrepository.AddAsync(ap);
-            CreatedTechnologyDto createdTechnologyDto =  _mapper.Map<CreatedTechnologyDto>(request);
+            CreatedTechnologyDto createdTechnologyDto =  _mapper.Map<CreatedTechnologyDto>(ap);
             return createdTechnologyDto;
         }
     }

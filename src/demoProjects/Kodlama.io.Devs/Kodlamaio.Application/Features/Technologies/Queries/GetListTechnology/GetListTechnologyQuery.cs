@@ -5,6 +5,7 @@ using Core.Application.Requests;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Technologies.Queries.GetListTechnology;
 
@@ -23,7 +24,10 @@ public class GetListTechnologyQuery : IRequest<TechnologyListModel>
 
         public async Task<TechnologyListModel> Handle(GetListTechnologyQuery request, CancellationToken cancellationToken)
         {
-           IPaginate<Technology> technology = await _technologyRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+            IPaginate<Technology> technology = await _technologyRepository.GetListAsync(
+                index: request.PageRequest.Page, size: request.PageRequest.PageSize,
+                include: x => x.Include(x=>x.ProgrammingLanguage)
+                ); 
            
            TechnologyListModel mappedTechnology = _mapper.Map<TechnologyListModel>(technology);
            return mappedTechnology;
