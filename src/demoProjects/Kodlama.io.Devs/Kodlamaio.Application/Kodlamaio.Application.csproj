@@ -8,9 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="Features\GitHubProfiles\Rules\" />
 		<Folder Include="Features\ProgrammingLanguage\Constants\" />
 		<Folder Include="Features\Technologies\Constants" />
 		<Folder Include="Features\Technologies\Rules" />
+		<Folder Include="Features\Developers\Constants\" />
 					</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kodlamaio.Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20220908195442_inti")]
-    partial class inti
+    [Migration("20220909143821_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -160,6 +160,35 @@ namespace Kodlamaio.Persistence.Migrations
                     b.ToTable("UserOperationClaims", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.GitHubProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DeveloperId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DevelopmenId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeveloperId");
+
+                    b.ToTable("GitHubProfiles");
+                });
+
             modelBuilder.Entity("Domain.Entities.ProgrammingLanguage", b =>
                 {
                     b.Property<int>("Id")
@@ -216,6 +245,13 @@ namespace Kodlamaio.Persistence.Migrations
                     b.ToTable("Technologies", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Developer", b =>
+                {
+                    b.HasBaseType("Core.Security.Entities.User");
+
+                    b.ToTable("Developers", (string)null);
+                });
+
             modelBuilder.Entity("Core.Security.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Core.Security.Entities.User", "User")
@@ -246,6 +282,17 @@ namespace Kodlamaio.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.GitHubProfile", b =>
+                {
+                    b.HasOne("Domain.Entities.Developer", "Developer")
+                        .WithMany("GitHubProfiles")
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Developer");
+                });
+
             modelBuilder.Entity("Domain.Entities.Technology", b =>
                 {
                     b.HasOne("Domain.Entities.ProgrammingLanguage", "ProgrammingLanguage")
@@ -255,6 +302,15 @@ namespace Kodlamaio.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("ProgrammingLanguage");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Developer", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.Entities.Developer", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Security.Entities.User", b =>
@@ -267,6 +323,11 @@ namespace Kodlamaio.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.ProgrammingLanguage", b =>
                 {
                     b.Navigation("Technologies");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Developer", b =>
+                {
+                    b.Navigation("GitHubProfiles");
                 });
 #pragma warning restore 612, 618
         }

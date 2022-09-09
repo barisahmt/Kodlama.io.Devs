@@ -13,8 +13,10 @@ namespace Kodlamaio.Persistence.Contexts
     public class BaseDbContext : DbContext
     {
         protected IConfiguration Configuration { get; set; }
+        public DbSet<Developer> Developers { get; set; }
         public DbSet<Technology> Technologies { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public DbSet<GitHubProfile> GitHubProfiles { get; set; }
 
         //security
         public DbSet<User> Users { get; set; }
@@ -74,6 +76,11 @@ namespace Kodlamaio.Persistence.Contexts
                 p.Property(p => p.OperationClaimId).HasColumnName("OperationClaimId");
                 p.HasOne(p => p.OperationClaim);
                 p.HasOne(p => p.User);
+            });
+            modelBuilder.Entity<Developer>(p =>
+            {
+                p.ToTable("Developers");
+                p.HasMany(p => p.GitHubProfiles);
             });
             modelBuilder.Entity<OperationClaim>(p =>
             {

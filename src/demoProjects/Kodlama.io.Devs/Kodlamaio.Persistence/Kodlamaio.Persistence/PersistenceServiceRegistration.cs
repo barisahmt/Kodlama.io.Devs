@@ -22,6 +22,9 @@ namespace Kodlamaio.Persistence
                                                          configuration.GetConnectionString("CampDevsConnectionString")));
             services.AddScoped<IProgrammingLanguageRepository, ProgrammingLanguageRepository>();
             services.AddScoped<ITechnologyRepository, TechnologyRepository>();
+            services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGitHubProfileRepository, GitHubProfileRepository>();
             return services;
         }
     }

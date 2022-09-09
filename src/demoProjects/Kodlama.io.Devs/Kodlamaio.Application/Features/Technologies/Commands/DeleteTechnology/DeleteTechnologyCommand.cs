@@ -8,7 +8,7 @@ namespace Application.Features.Technologies.Commands.DeleteTechnology;
 
 public class DeleteTechnologyCommand:IRequest<DeletedTechnologyDto>
 {
-    public string Name { get; set; }
+
     public int Id { get; set; }
 
     public class DeleteTechnologyCommandHandler : IRequestHandler<DeleteTechnologyCommand, DeletedTechnologyDto>
