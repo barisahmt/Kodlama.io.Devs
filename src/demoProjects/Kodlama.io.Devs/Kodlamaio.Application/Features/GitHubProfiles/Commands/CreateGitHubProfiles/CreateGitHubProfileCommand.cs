@@ -14,12 +14,15 @@ namespace Application.Features.GitHubProfiles.Commands.CreateGitHubProfile
 {
     public class CreateGitHubProfileCommand:IRequest<CreatedGitHubProfileDto>
     {
-        public int DevoloperId { get; set; }
+        public int DevelopmenId { get; set; }
         public string GithubUrl { get; set; }
         public  class CreateGitHubProfileCommandHandler :IRequestHandler<CreateGitHubProfileCommand,CreatedGitHubProfileDto>
         {
             private readonly IMapper _mapper;
             private readonly IGitHubProfileRepository _gitHubProfileRepository;
+
+            public CreateGitHubProfileCommandHandler(IMapper mapper, IGitHubProfileRepository gitHubProfileRepository)
+          => (_mapper, _gitHubProfileRepository) = (mapper, gitHubProfileRepository);
 
             public async Task<CreatedGitHubProfileDto> Handle(CreateGitHubProfileCommand request, CancellationToken cancellationToken)
             {

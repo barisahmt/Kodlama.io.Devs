@@ -9,10 +9,10 @@ namespace Domain.Entities
 {
     public class GitHubProfile : Entity
     {
-        public int DevelopmenId { get; set; }
         public string Name { get; set; }
-        public string ProfileUrl { get; set; }
+        public int DevelopmenId { get; set; }
         public virtual Developer Developer { get; set; }
+        public string ProfileUrl { get; set; }
 
         public GitHubProfile()
         {

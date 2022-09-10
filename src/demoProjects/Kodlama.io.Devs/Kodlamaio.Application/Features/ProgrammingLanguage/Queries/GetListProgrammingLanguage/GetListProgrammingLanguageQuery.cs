@@ -6,6 +6,7 @@ using Core.Application.Requests;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,11 @@ namespace Application.Features.programmingLanguage.Queries.GetListProgrammingLan
             {
 
 
-                IPaginate<ProgrammingLanguage> programmingLanguage = await _programmingLanguageRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);     
+                IPaginate<ProgrammingLanguage> programmingLanguage = await _programmingLanguageRepository.GetListAsync(
+                    index: request.PageRequest.Page, size: request.PageRequest.PageSize,
+                    include: t => t.Include(t=>t.Technologies)
+                    ); 
+                        
                 ProgrammingLanguageListModel mappedProgrammingLanguageListModel = _mapper.Map<ProgrammingLanguageListModel>(programmingLanguage);
                 return mappedProgrammingLanguageListModel;
             }

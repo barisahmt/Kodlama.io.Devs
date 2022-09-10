@@ -4,6 +4,7 @@ using Application.Features.programmingLanguage.Commands.UpdateProgrammingLanguag
 using Application.Features.programmingLanguage.Dtos;
 using Application.Features.programmingLanguage.Models;
 using Application.Features.programmingLanguage.Queries.GetByIdProgrammingLanguage;
+using Application.Features.programmingLanguage.Queries.GetListProgrammingLanguage;
 using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
@@ -19,6 +20,12 @@ namespace Application.Features.Brands.Profiles
     {
         public MappingProfiles()
         {
+            CreateMap<ProgrammingLanguage, ProgrammingLanguageListDto>()
+             .ForMember(c => c.Technologies,
+                 opt => opt.MapFrom(c => c.Technologies)).ReverseMap();
+            CreateMap<ProgrammingLanguage, CreatedProgrammingLanguageDto>().ForMember(c => c.Name, opt => opt.MapFrom
+        (c => c.Technologies)).ReverseMap();
+
             CreateMap<ProgrammingLanguage, CreatedProgrammingLanguageDto>().ReverseMap();
             CreateMap<ProgrammingLanguage, CreateProgrammingLanguageCommand>().ReverseMap();
             CreateMap<IPaginate<ProgrammingLanguage>, ProgrammingLanguageListModel>().ReverseMap();
@@ -29,6 +36,7 @@ namespace Application.Features.Brands.Profiles
             CreateMap<ProgrammingLanguage, UpdateProgrammingLanguageCommand>().ReverseMap();
             CreateMap<ProgrammingLanguage, GetByIdProgrammingLanguageDto>().ReverseMap();
             CreateMap<ProgrammingLanguage, GetByIdProgrammingLanguageQuery>().ReverseMap();
+            CreateMap<ProgrammingLanguage, GetListProgrammingLanguageQuery>().ReverseMap();
 
 
         }
