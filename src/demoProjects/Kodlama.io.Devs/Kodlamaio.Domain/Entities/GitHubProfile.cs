@@ -12,17 +12,17 @@ namespace Domain.Entities
         public string Name { get; set; }
         public int DevelopmenId { get; set; }
         public virtual Developer Developer { get; set; }
-        public string ProfileUrl { get; set; }
+        public string ProfilUrl { get; set; }
 
         public GitHubProfile()
         {
         }
 
-        public GitHubProfile(int developmenId, string name, string profileUrl)
+        public GitHubProfile(int developmenId, string name, string profilUrl)
         {
             DevelopmenId = developmenId;
             Name = name;
-            ProfileUrl = profileUrl;
+            ProfilUrl = profilUrl;
         }
     }
 }

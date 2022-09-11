@@ -14,8 +14,9 @@ namespace Application.Features.GitHubProfiles.Commands.CreateGitHubProfile
 {
     public class CreateGitHubProfileCommand:IRequest<CreatedGitHubProfileDto>
     {
-        public int DevelopmenId { get; set; }
-        public string GithubUrl { get; set; }
+        public string Name { get; set; }
+        public int DeveloperId { get; set; }
+        public string ProfilUrl { get; set; }
         public  class CreateGitHubProfileCommandHandler :IRequestHandler<CreateGitHubProfileCommand,CreatedGitHubProfileDto>
         {
             private readonly IMapper _mapper;

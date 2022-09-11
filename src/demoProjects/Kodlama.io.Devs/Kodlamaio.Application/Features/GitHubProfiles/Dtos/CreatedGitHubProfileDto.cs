@@ -10,6 +10,6 @@ namespace Application.Features.GitHubProfiles.Dtos
     {
 
         public int Id { get; set; }
-        public string ProfileUrl { get; set; }
+        public string ProfilUrl { get; set; }
     }
 }
